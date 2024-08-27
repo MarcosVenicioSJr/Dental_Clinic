@@ -2,6 +2,5 @@
 {
     public interface IRepositoryUsers : IRepository<Models.Users>
     {
-
     }
 }
