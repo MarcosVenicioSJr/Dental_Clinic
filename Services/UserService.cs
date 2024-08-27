@@ -15,14 +15,7 @@ namespace Dental_Clinic.Services
 
         public void CreateUser(Users entity)
         {
-            try
-            {
-                _repository.Insert(entity);
-
-            }catch (Exception ex)
-            {
-                throw;
-            }
+            _repository.Insert(entity);
         }
     }
 }

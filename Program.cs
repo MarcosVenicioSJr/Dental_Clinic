@@ -1,11 +1,20 @@
 using Dental_Clinic.Context;
+using Dental_Clinic.ExceptionHandler;
+using Dental_Clinic.Interfaces.Users;
+using Dental_Clinic.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddScoped<IRepositoryUsers, UserRepository>();
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new GlobalExceptionFilter());
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
