@@ -7,5 +7,6 @@
         void Insert(T entity);
         void Update(T entity);
         void DeleteById(int id);
+        void Save();
     }
 }

@@ -2,6 +2,7 @@ using Dental_Clinic.Context;
 using Dental_Clinic.ExceptionHandler;
 using Dental_Clinic.Interfaces.Users;
 using Dental_Clinic.Repository;
+using Dental_Clinic.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddScoped<IRepositoryUsers, UserRepository>();
+builder.Services.AddScoped<IUserServices, UserService>();
+builder.Services.AddScoped<DentalClinicContext>();
 
 builder.Services.AddControllers(options =>
 {
