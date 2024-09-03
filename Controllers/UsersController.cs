@@ -26,5 +26,18 @@ namespace Dental_Clinic.Controllers
             _services.CreateUser(request);
             return Ok("Sucesso");
         }
+
+        [HttpPost]
+        [Route("CreateUserList")]
+        public IActionResult CreateUserList([FromBody] List<CreateUserRequest> request)
+        {
+            TryValidateModel(request);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            _services.CreateUserByList(request);
+
+            return Ok("Sucesso");
+        }
     }
 }

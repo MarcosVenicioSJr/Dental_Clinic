@@ -43,6 +43,21 @@ namespace Dental_Clinic.Repository
 
         }
 
+        public async void InsertList(List<Users> users)
+        {
+            try
+            {
+                await _context.Users.AddRangeAsync(users);
+                Save();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            //throw new NotImplementedException();
+        }
+
         public void Save()
         {
             _context.SaveChanges();

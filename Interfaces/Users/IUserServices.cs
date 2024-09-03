@@ -5,5 +5,6 @@ namespace Dental_Clinic.Interfaces.Users
     public interface IUserServices : IServices
     {
         void CreateUser(CreateUserRequest entity);
+        void CreateUserByList(List<CreateUserRequest> listUserRequest);
     }
 }
