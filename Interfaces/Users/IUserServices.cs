@@ -2,7 +2,7 @@
 
 namespace Dental_Clinic.Interfaces.Users
 {
-    public interface IUserServices : IServices
+    public interface IUserServices : IServices<Models.Users>
     {
         void CreateUser(CreateUserRequest entity);
         void CreateUserByList(List<CreateUserRequest> listUserRequest);

@@ -1,6 +1,7 @@
 ﻿using Dental_Clinic.Context;
 using Dental_Clinic.Interfaces.Users;
 using Dental_Clinic.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace Dental_Clinic.Repository
@@ -19,14 +20,14 @@ namespace Dental_Clinic.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Users> GetAll()
+        public async Task<List<Users>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Users.ToListAsync();
         }
 
-        public Users GetById(int id)
+        public async Task<Users> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Users.FirstAsync(x => x.Id == id);
         }
 
         public async void Insert(Users entity)
@@ -65,7 +66,7 @@ namespace Dental_Clinic.Repository
 
         public void Update(Users entity)
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
     }
 }
