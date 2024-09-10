@@ -2,6 +2,7 @@
 using Dental_Clinic.Jsons.Request;
 using Dental_Clinic.Mapper;
 using Dental_Clinic.Models;
+using Dental_Clinic.Util;
 
 namespace Dental_Clinic.Services
 {
@@ -16,7 +17,9 @@ namespace Dental_Clinic.Services
 
         public void CreateUser(CreateUserRequest request)
         {
-            Models.Users entity = MapperUser.CreateUserMapper(request);
+            request.Password = HashPassword.EncryptPassword(request.Password);
+
+            Users entity = MapperUser.CreateUserMapper(request);
 
             _repository.Insert(entity);
         }
