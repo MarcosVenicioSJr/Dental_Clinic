@@ -2,7 +2,6 @@
 using Dental_Clinic.Interfaces.Users;
 using Dental_Clinic.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Dental_Clinic.Repository
 {
@@ -18,6 +17,11 @@ namespace Dental_Clinic.Repository
         public void DeleteById(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Users> FindByEmail(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Login == email);
         }
 
         public async Task<List<Users>> GetAll()
@@ -37,7 +41,7 @@ namespace Dental_Clinic.Repository
                 await _context.Users.AddAsync(entity);
                 Save();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -51,12 +55,10 @@ namespace Dental_Clinic.Repository
                 await _context.Users.AddRangeAsync(users);
                 Save();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
-
-            //throw new NotImplementedException();
         }
 
         public void Save()

@@ -1,4 +1,5 @@
-﻿using Dental_Clinic.Interfaces.Users;
+﻿using Dental_Clinic.ExceptionHandler.StatusCodeExceptions;
+using Dental_Clinic.Interfaces.Users;
 using Dental_Clinic.Jsons.Request;
 using Dental_Clinic.Mapper;
 using Dental_Clinic.Models;
@@ -17,6 +18,8 @@ namespace Dental_Clinic.Services
 
         public void CreateUser(CreateUserRequest request)
         {
+            ValidateUserExists(request.Login);
+
             request.Password = HashPassword.EncryptPassword(request.Password);
 
             Users entity = MapperUser.CreateUserMapper(request);
@@ -30,6 +33,9 @@ namespace Dental_Clinic.Services
 
             foreach (var userRequest in listUserRequest)
             {
+                ValidateUserExists(userRequest.Login);
+                userRequest.Password = HashPassword.EncryptPassword(userRequest.Password);
+
                 Users entity = MapperUser.CreateUserMapper(userRequest);
                 listUsers.Add(entity);
             }
@@ -57,6 +63,14 @@ namespace Dental_Clinic.Services
             newUser.Password = entity.Password;
 
             _repository.Update(newUser);
+        }
+
+        private void ValidateUserExists(string login)
+        {
+            Task<Users> user = _repository.FindByEmail(login);
+
+            if (user.Result != null)
+                throw new ValidationException($"The user {login} already exists.");
         }
     }
 }
